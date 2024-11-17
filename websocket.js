@@ -85,9 +85,9 @@ const findCompatiblePersons = (name, photo, data) => {
 };
 
 // Avvia il WebSocket server
-const wss = new WebSocket.Server({ port: 6789 });
+const wss = new WebSocket.Server("ws:https://friendmaker.onrender.com");
 
-console.log("Server WebSocket avviato su ws://localhost:6789");
+console.log("Server WebSocket avviato");
 
 wss.on("connection", ws => {
   console.log("Nuovo client connesso");
