@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <title>Survey</title>
+</head>
+
+<body>
+    <div class='container'>
+        <h2>Survey Questions</h2>
+        <hr>
+        <h4>Name (required)</h4>
+        <input id='userName' type="text" class='form-control' placeholder="Name required" required="true">
+
+        <h4>Instagram Profile (required)</h4>
+        <input id='photo' type="text" class='form-control' placeholder="Link to profile picture required" required="true">
+        <hr>
+
+        <!-- Questions section -->
+
+        <h3>Question 1</h3>
+        <h4>How often do you drink alcohol?</h4>
+        <select id='q1' class="dropdown">
+            <option selected>Choose your answer:</option>
+            <option value="1">I don't drink at all</option>
+            <option value="2">I’m a rare drinker</option>
+            <option value="3">Just socially, with friends</option>
+            <option value="4">Only on special occasions</option>
+            <option value="5">Almost every night</option>
+        </select>
+
+        <h3>Question 2</h3>
+        <h4>What’s your ideal Friday night?</h4>
+        <select id='q2' class="custom-select">
+            <option selected>Choose your answer:</option>
+            <option value="1">Staying in with a book or movie</option>
+            <option value="2">Cooking a nice dinner at home</option>
+            <option value="3">Going out with a few close friends</option>
+            <option value="4">Hitting a bar or a club</option>
+            <option value="5">Doing something unexpected and adventurous</option>
+        </select>
+
+        <h3>Question 3</h3>
+        <h4>Do you enjoy outdoor activities?</h4>
+        <select id='q3' class="custom-select">
+            <option selected>Choose your answer:</option>
+            <option value="1">Not at all, I’m an indoor person</option>
+            <option value="2">Only if it’s something relaxing like a picnic</option>
+            <option value="3">Occasionally, I like short hikes or beach days</option>
+            <option value="4">Quite a lot, I’m into sports or exploring nature</option>
+            <option value="5">All the time, I’m always on the move outdoors</option>
+        </select>
+
+        <h3>Question 4</h3>
+        <h4>Are you a morning or night person?</h4>
+        <select id='q4' class="custom-select">
+            <option selected>Select your answer:</option>
+            <option value="1">100% morning person</option>
+            <option value="2">More of a morning person, but can handle late nights</option>
+            <option value="3">Neither, I function best midday</option>
+            <option value="4">Night owl, without a doubt</option>
+            <option value="5">It really depends on my mood or schedule</option>
+        </select>
+
+        <h3>Question 5</h3>
+        <h4>How do you feel about pets?</h4>
+        <select id='q5' class="custom-select">
+            <option selected>Select your answer:</option>
+            <option value="1">Not a fan, I prefer no animals around</option>
+            <option value="2">I like animals but don’t want the responsibility</option>
+            <option value="3">I enjoy other people’s pets</option>
+            <option value="4">I want a pet someday</option>
+            <option value="5">I’m a total pet lover and can’t live without them!</option>
+        </select>
+
+        <h3>Question 6</h3>
+        <h4>What’s your travel style?</h4>
+        <select id='q6' class="custom-select">
+            <option selected>Select your answer:</option>
+            <option value="1">I prefer all-inclusive resorts</option>
+            <option value="2">Going to museums and historical sites</option>
+            <option value="3">Relaxing beach vacations</option>
+            <option value="4">Adventurous road trips and hiking</option>
+            <option value="5">Spontaneous, anywhere and anytime</option>
+        </select>
+
+        <h3>Question 7</h3>
+        <h4>What type of music do you prefer?</h4>
+        <select id='q7' class="custom-select">
+            <option selected>Select your answer:</option>
+            <option value="1">Classical or instrumental music</option>
+            <option value="2">Pop and chart-toppers</option>
+            <option value="3">Rock or alternative</option>
+            <option value="4">Hip-hop and R&B</option>
+            <option value="5">I enjoy a bit of everything</option>
+        </select>
+
+        <h3>Question 8</h3>
+        <h4>How important is physical activity to you?</h4>
+        <select id='q8' class="custom-select">
+            <option selected>Select your answer:</option>
+            <option value="1">Not at all important</option>
+            <option value="2">Occasionally, when I have free time</option>
+            <option value="3">Part of my weekly routine</option>
+            <option value="4">A regular part of my life, most days of the week</option>
+            <option value="5">Essential, I exercise daily and enjoy it</option>
+        </select>
+
+        <h3>Question 9</h3>
+        <h4>How do you prefer to spend your free time?</h4>
+        <select id='q9' class="custom-select">
+            <option selected>Select your answer:</option>
+            <option value="1">Going to concerts or watching sports events</option>
+            <option value="2">Exercising or playing sports</option>
+            <option value="3">Going out with friends</option>
+            <option value="4">Exploring new hobbies or learning something new</option>
+            <option value="5">Relaxing at home</option>
+        </select>
+
+        <h3>Question 10</h3>
+        <h4>Do you enjoy cooking?</h4>
+        <select id='q10' class="custom-select">
+            <option selected>Select your answer:</option>
+            <option value="1">Not really, I’d rather order in</option>
+            <option value="2">I can cook but only simple dishes</option>
+            <option value="3">I enjoy cooking when I have time</option>
+            <option value="4">I love cooking and often try new recipes</option>
+            <option value="5">Cooking is my creative outlet; I experiment with dishes all the time</option>
+        </select>
+
+        <!-- Repeat for all other questions (omitted for brevity) -->
+
+        <br><br><br>
+        <button id='addBtn' type="button" class="btn btn-lg btn-primary">Submit</button>
+
+        <script type="text/javascript">
+            $("#addBtn").on("click", function(event) {
+                event.preventDefault();
+                var newFriend = {
+                    name: $("#userName").val().trim(),
+                    photo: $("#photo").val().trim(),
+                    scores: [
+                        $("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(),
+                        $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(),
+                        $("#q9").val(), $("#q10").val()
+                    ]
+                };
+                sessionStorage.setItem('user', JSON.stringify({
+                    name: newFriend.name,
+                    photo: newFriend.photo
+                }));
+        
+
+                $.post("/api/friends", newFriend)
+                    .done(function(data) {
+                        window.location.href = "results.html";
+                        if (data.topMatches && data.topMatches.length > 0) {
+                            let tableHtml = "<h5>Top 3 Matches:</h5><table class='table table-striped'><thead><tr><th>Name</th><th>Profile Picture</th><th>Compatibility</th><th>Common Interests</th></tr></thead><tbody>";
+        
+                            data.topMatches.forEach(function(match) {
+                                tableHtml += "<tr>";
+                                tableHtml += "<td>" + match.name + "</td>";
+                                tableHtml += "<td>" + match.photo + "</td>";
+                                tableHtml += "<td>" + match.compatibility + "%</td>";
+                                tableHtml += "<td>" + (match.interestSummary || "No specific common interests identified.") + "</td>";
+                                tableHtml += "</tr>";
+                            });
+        
+                            tableHtml += "</tbody></table>";
+                            $("#matchesTable").html(tableHtml);
+                        } else {
+                            $("#matchesTable").html("<p>No matches found.</p>");
+                        }
+        
+                        $('#myModal').modal('show');
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown) {
+                        console.error("Error:", textStatus, errorThrown);
+                        alert("An error occurred while trying to find matches.");
+                    });
+            });
+        </script>                      
+    </div>
+    <script type="text/javascript" src="../routing/apiRoutes.js"></script>
+</body>
+
+</html>

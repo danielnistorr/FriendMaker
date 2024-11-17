@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.8.1/rxjs.umd.min.js"></script>
+
+    <title>Survey</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        if (sessionStorage.getItem("user") === null) {
+            alert("Please complete the survey before viewing your results.");
+            window.location.href = "survey.html";
+        }
+    </script>
+
+    <div class='container'>
+        <h5>Top 3 Matches:</h5>
+        <table class='table table-striped'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Instagram</th>
+                    <th>Compatibility</th>
+                    <th>Common Interests</th>
+                </tr>
+            </thead>
+            <tbody id="matches">
+
+            </tbody>
+        </table>
+
+        <script type="text/javascript">
+            const ws = new WebSocket("ws://localhost:6789");
+            let oldResults = "";
+
+            ws.onopen = async () => {
+                console.log("Connesso al server WebSocket")
+                ws.send(sessionStorage.getItem("user"));
+            };
+            ws.onclose = () => console.log("Connessione chiusa");
+            ws.onerror = (error) => console.error("Errore WebSocket:", error);
+
+
+            ws.onmessage = (message) => {
+                const tableHtml = document.getElementById("matches");
+                let rowsHtml = "";
+                
+                const matches = JSON.parse(message.data).forEach(match => {
+                    rowsHtml += "<tr>";
+                    rowsHtml += "<td>" + match.name + "</td>";
+                    rowsHtml += "<td>" + match.photo + "</td>";
+                    rowsHtml += "<td>" + match.compatibility + "%</td>";
+                    rowsHtml += "<td>" + (match.interestSummary || "No specific common interests identified.") + "</td>";
+                    rowsHtml += "</tr>";
+                });
+                
+                if (oldResults !== rowsHtml) {
+                    tableHtml.innerHTML = rowsHtml;
+                    oldResults = rowsHtml;
+                }
+
+            };
+        </script>
+
+
+    </div>
+    <script type="text/javascript" src="../routing/apiRoutes.js"></script>
+</body>
+
+</html>
