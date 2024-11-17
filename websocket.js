@@ -1,5 +1,6 @@
 const fs = require("fs");
 const WebSocket = require("ws");
+const http = require("http");
 
 // Carica dati dal file JSON
 const loadData = () => {
@@ -84,10 +85,14 @@ const findCompatiblePersons = (name, photo, data) => {
   return compatibilities;
 };
 
-// Avvia il WebSocket server
-const wss = new WebSocket.Server("ws:https://friendmaker.onrender.com");
+// Crea un server HTTP per gestire WebSocket
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("WebSocket server is running.");
+});
 
-console.log("Server WebSocket avviato");
+// Configura WebSocket
+const wss = new WebSocket.Server({ server });
 
 wss.on("connection", ws => {
   console.log("Nuovo client connesso");
@@ -112,4 +117,10 @@ wss.on("connection", ws => {
   ws.on("close", () => {
     console.log("Client disconnesso");
   });
+});
+
+// Avvia il server HTTP
+const PORT = process.env.PORT || 3000; // Render uses environment variables for the port
+server.listen(PORT, () => {
+  console.log(`Server WebSocket avviato su http://localhost:${PORT}`);
 });
