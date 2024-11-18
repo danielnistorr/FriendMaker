@@ -19,10 +19,6 @@ const compatibilityScore = (scores1, scores2) => {
 
 // Genera una descrizione degli interessi comuni
 const generateInterestDescription = (friendScores, userScores) => {
-
-  if (compatibility === 100) {
-    return "You are basically the same person.";
-  }
   
   let interests = [];
 
@@ -69,6 +65,9 @@ const findCompatiblePersons = (name, photo, data) => {
     .filter(person => !(person.name === name && person.photo === photo))
     .map(person => {
       const compatibility = compatibilityScore(targetScores, person.scores);
+      if (compatibility === 100) {
+        const interestSummary = "You both have identical interests.";
+      }
       const interestSummary = generateInterestDescription(person.scores, targetScores);
       return {
         name: person.name,
