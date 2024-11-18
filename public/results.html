@@ -128,8 +128,6 @@ const wsUrl =
 
 const ws = new WebSocket(wsUrl);
 
-let oldResults = "";
-
 ws.onopen = async () => {
     console.log("Connected to WebSocket server");
     const user = sessionStorage.getItem("user");
@@ -145,25 +143,22 @@ ws.onerror = (error) => console.error("WebSocket error:", error);
 
 ws.onmessage = (message) => {
     const tableHtml = document.getElementById("matches");
-    let rowsHtml = "";
-
     const matches = JSON.parse(message.data);
-    matches.forEach((match) => {
-        rowsHtml += `
-            <tr>
-                <td>${match.name}</td>
-                <td>${match.photo}</td>
-                <td>${match.compatibility}%</td>
-                <td>${match.interestSummary || "No specific common interests identified."}</td>
-            </tr>
-        `;
-    });
 
-    // Update table only if results change
-    if (oldResults !== rowsHtml) {
-        tableHtml.innerHTML = rowsHtml;
-        oldResults = rowsHtml;
-    }
+    // Clear existing rows before adding new ones
+    tableHtml.innerHTML = "";
+
+    // Update the table with the top 3 matches
+    matches.forEach((match) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${match.name}</td>
+            <td>${match.photo}</td>
+            <td>${match.compatibility}%</td>
+            <td>${match.interestSummary || "No specific common interests identified."}</td>
+        `;
+        tableHtml.appendChild(row);
+    });
 };
 
     </script>

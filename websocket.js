@@ -61,15 +61,10 @@ const findCompatiblePersons = (name, photo, data) => {
   const targetScores = target.scores;
 
   const compatibilities = data
-    .filter(person => person.name !== name) // Escludi la stessa persona
+    .filter(person => !(person.name === name && person.photo === photo))
     .map(person => {
       const compatibility = compatibilityScore(targetScores, person.scores);
-      let interestSummary;
-      if (compatibility === 100) {
-        interestSummary = "You are the same person";
-      } else {
-        interestSummary = generateInterestDescription(person.scores, targetScores);
-      }
+      const interestSummary = generateInterestDescription(person.scores, targetScores);
       return {
         name: person.name,
         photo: person.photo,
@@ -92,15 +87,25 @@ module.exports = function attachWebSocket(server) {
   wss.on("connection", (ws) => {
     console.log("New client connected");
 
+    let intervalId;
+
     ws.on("message", (message) => {
       try {
         const userData = JSON.parse(message);
         const { name, photo } = userData;
 
-        const data = loadData();
-        const results = findCompatiblePersons(name, photo, data);
+        // Clear any previous interval to avoid duplicates
+        if (intervalId) {
+          clearInterval(intervalId);
+        }
 
-        ws.send(JSON.stringify(results));
+        // Start a new interval to send updates every second
+        intervalId = setInterval(() => {
+          const data = loadData();
+          const results = findCompatiblePersons(name, photo, data);
+
+          ws.send(JSON.stringify(results));
+        }, 1000);
       } catch (err) {
         console.error("Error processing message:", err);
         ws.send(JSON.stringify({ error: "Internal server error" }));
@@ -109,6 +114,10 @@ module.exports = function attachWebSocket(server) {
 
     ws.on("close", () => {
       console.log("Client disconnected");
+      // Clear interval when client disconnects
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
     });
   });
 };

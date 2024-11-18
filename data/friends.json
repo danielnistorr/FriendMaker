@@ -176,8 +176,8 @@
     ]
   },
   {
-    "name": "ebreo",
-    "photo": "adsdas",
+    "name": "daniel",
+    "photo": "nistor",
     "scores": [
       "1",
       "1",
@@ -193,7 +193,23 @@
   },
   {
     "name": "daniel",
-    "photo": "daniel",
+    "photo": "negru",
+    "scores": [
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1"
+    ]
+  },
+  {
+    "name": "filippo",
+    "photo": "tonello",
     "scores": [
       "1",
       "1",
