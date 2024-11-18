@@ -29,23 +29,31 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            max-width: 100%;
-            width: 500px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
         }
         
         /* Headers */
-        h2, h3, h4 {
+        h2 {
+            font-size: 28px;
+            color: black;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        h3, h4 {
+            font-size: 22px;
             color: black;
             margin-bottom: 15px;
         }
         
         /* Inputs and Dropdowns */
         input[type="text"], select {
-            font-size: 16px;
+            font-size: 20px;
             border: 2px solid #FF7854;
             border-radius: 5px;
-            padding: 10px;
+            padding: 15px;
             margin-bottom: 20px;
             width: 100%;
         }
@@ -60,9 +68,9 @@
             background-color: #FF7854;
             border-color: #FF7854;
             color: #fff;
-            font-size: 16px;
+            font-size: 20px;
             font-weight: bold;
-            padding: 12px;
+            padding: 15px;
             border-radius: 5px;
             width: 100%;
         }
@@ -80,40 +88,49 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 25px;
             }
         
             h2 {
-                font-size: 18px;
-                text-align: center;
+                font-size: 24px;
             }
         
             h3, h4 {
-                font-size: 16px;
-                text-align: left;
+                font-size: 20px;
             }
         
             input, select {
-                font-size: 14px;
+                font-size: 18px;
+                padding: 12px;
             }
         
             .btn-primary {
-                font-size: 14px;
-                padding: 10px;
+                font-size: 18px;
+                padding: 12px;
             }
         }
         
         @media (max-width: 480px) {
             .container {
-                padding: 10px;
+                padding: 20px;
             }
         
             h2 {
-                font-size: 16px;
+                font-size: 22px;
             }
         
             h3, h4 {
-                font-size: 14px;
+                font-size: 18px;
+            }
+        
+            input, select {
+                font-size: 16px;
+                padding: 10px;
+            }
+        
+            .btn-primary {
+                font-size: 16px;
+                padding: 10px;
             }
         }
         </style>
