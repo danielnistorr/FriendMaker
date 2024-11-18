@@ -1,25 +1,29 @@
 const fs = require("fs");
 const WebSocket = require("ws");
 
-// Carica dati dal file JSON
+// Load data from the JSON file
 const loadData = () => {
   try {
     const rawData = fs.readFileSync("data/friends.json");
     return JSON.parse(rawData);
   } catch (err) {
-    console.error("Errore caricando il file JSON:", err);
+    console.error("Error loading JSON file:", err);
     return [];
   }
 };
 
-// Calcola compatibilità tra due liste di punteggi
+// Calculate compatibility between two score lists
 const compatibilityScore = (scores1, scores2) => {
-  return 100 - scores1.reduce((sum, s1, index) => sum + Math.abs(s1 - scores2[index]), 0) / (scores1.length * 5) * 100;
+  return (
+    100 -
+    (scores1.reduce((sum, s1, index) => sum + Math.abs(s1 - scores2[index]), 0) /
+      (scores1.length * 5)) *
+      100
+  );
 };
 
-// Genera una descrizione degli interessi comuni
+// Generate a description of common interests
 const generateInterestDescription = (friendScores, userScores) => {
-  
   let interests = [];
 
   if (friendScores[7] >= 4 && userScores[7] >= 4) {
@@ -53,33 +57,36 @@ const generateInterestDescription = (friendScores, userScores) => {
   return interests.join(" ");
 };
 
-// Trova le 3 persone più compatibili con descrizione degli interessi comuni
+// Find the 3 most compatible persons with a description of common interests
 const findCompatiblePersons = (name, photo, data) => {
-  const target = data.find(person => person.name === name && person.photo === photo);
+  const target = data.find((person) => person.name === name && person.photo === photo);
 
   if (!target) return [];
 
   const targetScores = target.scores;
 
   const compatibilities = data
-    .filter(person => !(person.name === name && person.photo === photo))
-    .map(person => {
+    .filter((person) => !(person.name === name && person.photo === photo))
+    .map((person) => {
       const compatibility = compatibilityScore(targetScores, person.scores);
+
+      let interestSummary;
       if (compatibility === 100) {
-        const interestSummary = "You both have identical interests.";
+        interestSummary = "You both have identical interests.";
       } else {
-      const interestSummary = generateInterestDescription(person.scores, targetScores);
+        interestSummary = generateInterestDescription(person.scores, targetScores);
       }
+
       return {
         name: person.name,
         photo: person.photo,
         compatibility: parseFloat(compatibility.toFixed(2)),
-        interestSummary
+        interestSummary,
       };
     })
-    .filter(person => person.compatibility >= 50) // Filtra per compatibilità >= 50%
-    .sort((a, b) => b.compatibility - a.compatibility) // Ordina per compatibilità decrescente
-    .slice(0, 3); // Prendi i primi 3 risultati
+    .filter((person) => person.compatibility >= 50) // Filter for compatibility >= 50%
+    .sort((a, b) => b.compatibility - a.compatibility) // Sort by descending compatibility
+    .slice(0, 3); // Take the top 3 results
 
   return compatibilities;
 };
