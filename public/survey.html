@@ -11,119 +11,113 @@
     <title>Survey</title>
 
     <style>
-        /* Body Styling */
-body {
-    font-family: "Poppins", Helvetica, Arial, sans-serif;
-    background: linear-gradient(135deg, #FF7854, #FD297B); /* Tinder-inspired gradient */
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    margin: 0;
-}
-
-/* Container Styling */
-.container {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 30px;
-    max-width: 500px;
-    width: 100%;
-}
-
-/* Header Styles */
-.jumbotron h1 {
-    color: #FF7854;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h2, h3, h4 {
-    color: black;
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-/* Input and Select Styling */
-input[type="text"], select {
-    font-size: 16px;
-    border: 2px solid #FF7854; /* Coral border */
-    border-radius: 5px;
-    transition: border-color 0.3s ease;
-}
-
-input[type="text"]:focus, select:focus {
-    border-color: #FD297B; /* Pink border on focus */
-    box-shadow: 0 0 5px rgba(253, 41, 123, 0.5);
-}
-
-/* Submit Button */
-.btn-primary {
-    background-color: #FF7854;
-    border-color: #FF7854;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    width: 100%;
-}
-
-.btn-primary:hover {
-    background-color: #FD297B;
-    border-color: #FD297B;
-}
-
-.btn-primary:disabled {
-    background-color: #ccc;
-    border-color: #ccc;
-    cursor: not-allowed;
-}
-
-/* Dropdown Styling */
-select {
-    background-color: #ffffff; /* White background */
-    color: #000000; /* Black text */
-    font-size: 16px;
-    border: 2px solid #FF7854; /* Coral border */
-    border-radius: 5px;
-    padding: 5px;
-    transition: all 0.3s ease; /* Smooth transition for hover/focus */
-    width: 100%; /* Ensure it adjusts dynamically */
-    max-width: 100%; /* Set the maximum width to 90% of the parent container */
-    margin: 0 auto; /* Center the dropdown within the container */
-}
-
-select:focus {
-    border-color: #FD297B; /* Pink border on focus */
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 5px rgba(253, 41, 123, 0.5); /* Add focus glow */
-}
-
-option {
-    background-color: #ffffff; /* Ensures dropdown options are white */
-    color: #000000; /* Black text for options */
-}
-
-
-
-/* Responsive Styling */
-@media (max-width: 768px) {
-    .container {
-        padding: 20px;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-}
-
-    </style>
+        /* General Styling */
+        body {
+            font-family: "Poppins", Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #FF7854, #FD297B);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        /* Container */
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 100%;
+            width: 500px;
+        }
+        
+        /* Headers */
+        h2, h3, h4 {
+            color: black;
+            margin-bottom: 15px;
+        }
+        
+        /* Inputs and Dropdowns */
+        input[type="text"], select {
+            font-size: 16px;
+            border: 2px solid #FF7854;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        input:focus, select:focus {
+            border-color: #FD297B;
+            box-shadow: 0 0 5px rgba(253, 41, 123, 0.5);
+        }
+        
+        /* Button */
+        .btn-primary {
+            background-color: #FF7854;
+            border-color: #FF7854;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 5px;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            background-color: #FD297B;
+            border-color: #FD297B;
+        }
+        
+        .btn-primary:disabled {
+            background-color: #ccc;
+            border-color: #ccc;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+        
+            h2 {
+                font-size: 18px;
+                text-align: center;
+            }
+        
+            h3, h4 {
+                font-size: 16px;
+                text-align: left;
+            }
+        
+            input, select {
+                font-size: 14px;
+            }
+        
+            .btn-primary {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+        
+            h2 {
+                font-size: 16px;
+            }
+        
+            h3, h4 {
+                font-size: 14px;
+            }
+        }
+        </style>
+        
 
 </head>
 
