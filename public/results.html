@@ -5,9 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.8.1/rxjs.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-
 
     <title>Results</title>
 
@@ -54,6 +52,7 @@ th {
     padding: 12px;
     text-align: center;
     font-size: 16px;
+    vertical-align: middle;
 }
 
 td {
@@ -62,6 +61,7 @@ td {
     font-size: 14px;
     color: #333;
     word-wrap: break-word; /* Forces long text to wrap within cell */
+    vertical-align: middle;
 }
 
 tbody tr:nth-child(even) {
@@ -149,16 +149,28 @@ ws.onmessage = (message) => {
     tableHtml.innerHTML = "";
 
     // Update the table with the top 3 matches
-    matches.forEach((match) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${match.name}</td>
-            <td>${match.photo}</td>
-            <td>${match.compatibility}%</td>
-            <td>${match.interestSummary || "No specific common interests identified."}</td>
-        `;
-        tableHtml.appendChild(row);
-    });
+    // Update the table with the top 3 matches
+matches.forEach((match) => {
+    // Primary row for match details
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${match.name}</td>
+        <td>${match.photo}</td>
+        <td>${match.compatibility}%</td>
+        <td>${match.interestSummary || "No specific common interests identified."}</td>
+    `;
+    tableHtml.appendChild(row);
+
+    // Secondary row for activity suggestions
+    const activityRow = document.createElement("tr");
+    activityRow.innerHTML = `
+        <td colspan="4" style="text-align: left; padding: 15px; background-color: #f9f9f9;">
+            <strong>Suggested Activities:</strong> ${match.activitySuggestions || "No specific activities suggested."}
+        </td>
+    `;
+    tableHtml.appendChild(activityRow);
+});
+
 };
 
     </script>

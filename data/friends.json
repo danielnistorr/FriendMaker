@@ -1,7 +1,7 @@
 [
   {
-    "name": "Daisy",
-    "photo": "https://goo.gl/images/QAiKn9",
+    "name": "Daniel",
+    "photo": "Nistor",
     "scores": [
       5,
       1,
@@ -17,7 +17,7 @@
   },
   {
     "name": "Rocky",
-    "photo": "https://goo.gl/images/rvbCc5",
+    "photo": "Balboa",
     "scores": [
       4,
       2,
@@ -32,8 +32,8 @@
     ]
   },
   {
-    "name": "Ralphie",
-    "photo": "https://goo.gl/images/vyg9Ax",
+    "name": "Eden",
+    "photo": "Hazard",
     "scores": [
       3,
       1,
@@ -49,7 +49,7 @@
   },
   {
     "name": "Suzanna",
-    "photo": "https://goo.gl/images/UbNbTw",
+    "photo": "Lincoln",
     "scores": [
       2,
       4,
@@ -65,7 +65,7 @@
   },
   {
     "name": "Star",
-    "photo": "https://goo.gl/images/9Uu5dF",
+    "photo": "Lord",
     "scores": [
       1,
       4,
@@ -81,7 +81,7 @@
   },
   {
     "name": "Pepper",
-    "photo": "https://goo.gl/images/RzPyc2",
+    "photo": "Lord",
     "scores": [
       5,
       1,
@@ -97,7 +97,7 @@
   },
   {
     "name": "Wheelie",
-    "photo": "https://goo.gl/images/QKZeEB",
+    "photo": "BMX",
     "scores": [
       4,
       3,
@@ -113,7 +113,7 @@
   },
   {
     "name": "Peaches",
-    "photo": "https://goo.gl/images/RU53hy",
+    "photo": "Princess",
     "scores": [
       3,
       1,
@@ -128,8 +128,8 @@
     ]
   },
   {
-    "name": "The Dread Pirate Roberts",
-    "photo": "https://goo.gl/images/Z7DGhd",
+    "name": "The Dread Pirate",
+    "photo": "Sparrow",
     "scores": [
       3,
       2,
@@ -145,7 +145,7 @@
   },
   {
     "name": "Rocket",
-    "photo": "https://goo.gl/images/6Lbf3C",
+    "photo": "League",
     "scores": [
       1,
       5,
@@ -161,7 +161,7 @@
   },
   {
     "name": "Leao",
-    "photo": "https://assets.goal.com/images/v3/bltf1405419b975cd0b/leao%20milan%20(2).jpg?auto=webp&format=pjpg&width=3840&quality=60",
+    "photo": "Rafael",
     "scores": [
       1,
       1,
@@ -173,6 +173,22 @@
       1,
       1,
       1
+    ]
+  },
+  {
+    "name": "daniel",
+    "photo": "daniel",
+    "scores": [
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1"
     ]
   }
 ]

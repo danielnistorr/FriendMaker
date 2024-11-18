@@ -22,39 +22,51 @@ const compatibilityScore = (scores1, scores2) => {
   );
 };
 
-// Generate a description of common interests
+// Generate a description of common interests and suggest activities
 const generateInterestDescription = (friendScores, userScores) => {
   let interests = [];
+  let activitySuggestions = [];
 
   if (friendScores[7] >= 4 && userScores[7] >= 4) {
     interests.push("Both are highly active and enjoy regular training.");
+    activitySuggestions.push("Try going to the gym together or joining a fitness class.");
   } else if (friendScores[7] <= 2 && userScores[7] <= 2) {
     interests.push("Both prefer a more relaxed lifestyle over physical activity.");
+    activitySuggestions.push("Meet at a coffee shop or enjoy a movie marathon.");
   }
 
   if (friendScores[0] <= 2 && userScores[0] <= 2) {
     interests.push("Both prefer not to drink or drink rarely.");
+    activitySuggestions.push("Have a non-alcoholic mocktail-making session or explore a café.");
   } else if (friendScores[0] >= 3 && userScores[0] >= 3) {
     interests.push("Both enjoy social drinking.");
+    activitySuggestions.push("Meet for drinks at a local bar or host a cocktail night.");
   }
 
   if (friendScores[1] >= 3 && userScores[1] >= 3) {
     interests.push("Both enjoy social outings and spending time with friends.");
+    activitySuggestions.push("Plan a group hangout or organize a game night.");
   }
 
   if (friendScores[4] >= 4 && userScores[4] >= 4) {
     interests.push("Both are total pet lovers.");
+    activitySuggestions.push("Plan a pet playdate or volunteer at an animal shelter.");
   }
 
   if (friendScores[5] >= 3 && userScores[5] >= 3) {
     interests.push("Both enjoy adventurous travel experiences.");
+    activitySuggestions.push("Plan a hiking trip or explore a new city together.");
   }
 
-  if (interests.length === 0) {
-    return "No specific common interests identified.";
+  if (friendScores[6] >= 4 && userScores[6] >= 4) {
+    interests.push("Both love chilling out and watching films.");
+    activitySuggestions.push("Go to the cinema or host a movie night.");
   }
 
-  return interests.join(" ");
+  return {
+    interestSummary: interests.length > 0 ? interests.join(" ") : "No specific common interests identified.",
+    activitySuggestions: activitySuggestions.length > 0 ? activitySuggestions.join(" ") : "No specific activities suggested."
+  };
 };
 
 // Find the 3 most compatible persons with a description of common interests
@@ -70,18 +82,19 @@ const findCompatiblePersons = (name, photo, data) => {
     .map((person) => {
       const compatibility = compatibilityScore(targetScores, person.scores);
 
-      let interestSummary;
-      if (compatibility === 100) {
-        interestSummary = "You both have identical interests.";
-      } else {
-        interestSummary = generateInterestDescription(person.scores, targetScores);
-      }
+      const { interestSummary, activitySuggestions } = compatibility === 100
+        ? { 
+            interestSummary: "You both have identical interests.", 
+            activitySuggestions: "Plan a trip together or work on shared hobbies." 
+          }
+        : generateInterestDescription(person.scores, targetScores);
 
       return {
         name: person.name,
         photo: person.photo,
         compatibility: parseFloat(compatibility.toFixed(2)),
         interestSummary,
+        activitySuggestions
       };
     })
     .filter((person) => person.compatibility >= 50) // Filter for compatibility >= 50%
@@ -116,6 +129,7 @@ module.exports = function attachWebSocket(server) {
           const data = loadData();
           const results = findCompatiblePersons(name, photo, data);
 
+          // Send results with activitySuggestions included
           ws.send(JSON.stringify(results));
         }, 1000);
       } catch (err) {
