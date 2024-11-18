@@ -6,21 +6,106 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.8.1/rxjs.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <title>Survey</title>
+
+    <title>Results</title>
+
+    <style>
+/* Body Styling */
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: linear-gradient(135deg, #FF7854, #FD297B); /* Tinder-inspired gradient */
+    color: #333; /* Black text for contrast */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Container Styling */
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 90%; /* Container takes up 90% of the screen width */
+    width: 800px; /* Default width for larger screens */
+    height: auto; /* Ensures the container grows as needed */
+    box-sizing: border-box;
+}
+
+/* Table Styling */
+table {
+    width: 100%; /* Ensures table takes up the full width of the container */
+    border-collapse: collapse; /* Removes gaps between table borders */
+    table-layout: fixed; /* Ensures columns distribute space evenly */
+}
+
+thead {
+    background-color: #FF7854;
+    color: #fff;
+}
+
+th {
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+}
+
+td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    word-wrap: break-word; /* Forces long text to wrap within cell */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1; /* Subtle hover effect for rows */
+}
+
+/* Image Styling */
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    table th, table td {
+        font-size: 14px;
+    }
+}
+    </style>
 </head>
 
 <body>
     <script type="text/javascript">
+        // Redirect user if session data is missing
         if (sessionStorage.getItem("user") === null) {
             alert("Please complete the survey before viewing your results.");
             window.location.href = "survey.html";
         }
     </script>
 
-    <div class='container'>
-        <h5>Top 3 Matches:</h5>
-        <table class='table table-striped'>
+    <div class="container">
+        <h2 class="text-center">Top 3 Matches</h2>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -30,46 +115,46 @@
                 </tr>
             </thead>
             <tbody id="matches">
-
+                <!-- Dynamic rows will be inserted here -->
             </tbody>
         </table>
-
-        <script type="text/javascript">
-            const ws = new WebSocket("ws://localhost:6789");
-            let oldResults = "";
-
-            ws.onopen = async () => {
-                console.log("Connesso al server WebSocket")
-                ws.send(sessionStorage.getItem("user"));
-            };
-            ws.onclose = () => console.log("Connessione chiusa");
-            ws.onerror = (error) => console.error("Errore WebSocket:", error);
-
-
-            ws.onmessage = (message) => {
-                const tableHtml = document.getElementById("matches");
-                let rowsHtml = "";
-                
-                const matches = JSON.parse(message.data).forEach(match => {
-                    rowsHtml += "<tr>";
-                    rowsHtml += "<td>" + match.name + "</td>";
-                    rowsHtml += "<td>" + match.photo + "</td>";
-                    rowsHtml += "<td>" + match.compatibility + "%</td>";
-                    rowsHtml += "<td>" + (match.interestSummary || "No specific common interests identified.") + "</td>";
-                    rowsHtml += "</tr>";
-                });
-                
-                if (oldResults !== rowsHtml) {
-                    tableHtml.innerHTML = rowsHtml;
-                    oldResults = rowsHtml;
-                }
-
-            };
-        </script>
-
-
     </div>
-    <script type="text/javascript" src="../routing/apiRoutes.js"></script>
+
+    <script type="text/javascript">
+        const ws = new WebSocket("ws://friendmaker.onrender.com:6789");
+        let oldResults = "";
+
+        ws.onopen = async () => {
+            console.log("Connected to WebSocket server");
+            ws.send(sessionStorage.getItem("user"));
+        };
+
+        ws.onclose = () => console.log("WebSocket connection closed");
+        ws.onerror = (error) => console.error("WebSocket error:", error);
+
+        ws.onmessage = (message) => {
+            const tableHtml = document.getElementById("matches");
+            let rowsHtml = "";
+
+            const matches = JSON.parse(message.data);
+            matches.forEach((match) => {
+                rowsHtml += `
+                    <tr>
+                        <td>${match.name}</td>
+                        <td>${match.photo}</td>
+                        <td>${match.compatibility}%</td>
+                        <td>${match.interestSummary || "No specific common interests identified."}</td>
+                    </tr>
+                `;
+            });
+
+            // Update table only if results change
+            if (oldResults !== rowsHtml) {
+                tableHtml.innerHTML = rowsHtml;
+                oldResults = rowsHtml;
+            }
+        };
+    </script>
 </body>
 
 </html>

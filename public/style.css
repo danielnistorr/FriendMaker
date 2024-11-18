@@ -1,0 +1,77 @@
+/* Body Styling */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #FF7854, #FD297B); /* Tinder-inspired gradient */
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Container Styling */
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Header Styles */
+h2 {
+    color: #FF7854;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Input and Select Styling */
+input[type="text"], select {
+    font-size: 16px;
+    border: 2px solid #FF7854; /* Coral border */
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #FD297B; /* Pink border on focus */
+    box-shadow: 0 0 5px rgba(253, 41, 123, 0.5);
+}
+
+/* Submit Button */
+.btn-primary {
+    background-color: #FF7854;
+    border-color: #FF7854;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #FD297B;
+    border-color: #FD297B;
+}
+
+.btn-primary:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}

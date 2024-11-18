@@ -2,10 +2,129 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
     <title>Survey</title>
+
+    <style>
+        /* Body Styling */
+body {
+    font-family: "Poppins", Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #FF7854, #FD297B); /* Tinder-inspired gradient */
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Container Styling */
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Header Styles */
+.jumbotron h1 {
+    color: #FF7854;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2, h3, h4 {
+    color: black;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Input and Select Styling */
+input[type="text"], select {
+    font-size: 16px;
+    border: 2px solid #FF7854; /* Coral border */
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #FD297B; /* Pink border on focus */
+    box-shadow: 0 0 5px rgba(253, 41, 123, 0.5);
+}
+
+/* Submit Button */
+.btn-primary {
+    background-color: #FF7854;
+    border-color: #FF7854;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #FD297B;
+    border-color: #FD297B;
+}
+
+.btn-primary:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Dropdown Styling */
+select {
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text */
+    font-size: 16px;
+    border: 2px solid #FF7854; /* Coral border */
+    border-radius: 5px;
+    padding: 5px;
+    transition: all 0.3s ease; /* Smooth transition for hover/focus */
+    width: 100%; /* Ensure it adjusts dynamically */
+    max-width: 100%; /* Set the maximum width to 90% of the parent container */
+    margin: 0 auto; /* Center the dropdown within the container */
+}
+
+select:focus {
+    border-color: #FD297B; /* Pink border on focus */
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(253, 41, 123, 0.5); /* Add focus glow */
+}
+
+option {
+    background-color: #ffffff; /* Ensures dropdown options are white */
+    color: #000000; /* Black text for options */
+}
+
+
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}
+
+    </style>
+
 </head>
 
 <body>
@@ -16,7 +135,7 @@
         <input id='userName' type="text" class='form-control' placeholder="Name required" required="true">
 
         <h4>Surname (required)</h4>
-        <input id='photo' type="text" class='form-control' placeholder="Link to profile picture required" required="true">
+        <input id='photo' type="text" class='form-control' placeholder="Surname" required="true">
         <hr>
 
         <!-- Questions section -->

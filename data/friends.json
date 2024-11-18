@@ -176,40 +176,24 @@
     ]
   },
   {
+    "name": "ebreo",
+    "photo": "adsdas",
+    "scores": [
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1"
+    ]
+  },
+  {
     "name": "daniel",
-    "photo": "nistor",
-    "scores": [
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1"
-    ]
-  },
-  {
-    "name": "filippo",
-    "photo": "tonello",
-    "scores": [
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1",
-      "1"
-    ]
-  },
-  {
-    "name": "chiara",
-    "photo": "piccoli",
+    "photo": "daniel",
     "scores": [
       "1",
       "1",
