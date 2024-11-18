@@ -19,6 +19,11 @@ const compatibilityScore = (scores1, scores2) => {
 
 // Genera una descrizione degli interessi comuni
 const generateInterestDescription = (friendScores, userScores) => {
+
+  if (compatibility === 100) {
+    return "You are basically the same person.";
+  }
+  
   let interests = [];
 
   if (friendScores[7] >= 4 && userScores[7] >= 4) {
