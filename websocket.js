@@ -84,17 +84,16 @@ const findCompatiblePersons = (name, photo, data) => {
   return compatibilities;
 };
 
-// Avvia il WebSocket server
-const wss = new WebSocket.Server({ port: 6789 });
+module.exports = function attachWebSocket(server) {
+  const wss = new WebSocket.Server({ server });
 
-console.log("Server WebSocket avviato su ws://localhost:6789");
+  console.log("WebSocket server attached to existing HTTP server.");
 
-wss.on("connection", ws => {
-  console.log("Nuovo client connesso");
+  wss.on("connection", (ws) => {
+    console.log("New client connected");
 
-  ws.on("message", message => {
-    try {
-      setInterval(() => {
+    ws.on("message", (message) => {
+      try {
         const userData = JSON.parse(message);
         const { name, photo } = userData;
 
@@ -102,14 +101,14 @@ wss.on("connection", ws => {
         const results = findCompatiblePersons(name, photo, data);
 
         ws.send(JSON.stringify(results));
-      }, 1000);
-    } catch (err) {
-      console.error("Errore nella gestione del messaggio:", err);
-      ws.send(JSON.stringify({ error: "Errore interno del server" }));
-    }
-  });
+      } catch (err) {
+        console.error("Error processing message:", err);
+        ws.send(JSON.stringify({ error: "Internal server error" }));
+      }
+    });
 
-  ws.on("close", () => {
-    console.log("Client disconnesso");
+    ws.on("close", () => {
+      console.log("Client disconnected");
+    });
   });
-});
+};

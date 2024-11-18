@@ -121,39 +121,51 @@ img {
     </div>
 
     <script type="text/javascript">
-        const ws = new WebSocket("wss://friendmaker-f41b04a16295.herokuapp.com:6789");
-        let oldResults = "";
+const wsUrl = 
+    location.origin.includes("localhost")
+        ? "ws://localhost:3000" // Local development URL
+        : "wss://friendmaker-f41b04a16295.herokuapp.com"; // Heroku WebSocket URL
 
-        ws.onopen = async () => {
-            console.log("Connected to WebSocket server");
-            ws.send(sessionStorage.getItem("user"));
-        };
+const ws = new WebSocket(wsUrl);
 
-        ws.onclose = () => console.log("WebSocket connection closed");
-        ws.onerror = (error) => console.error("WebSocket error:", error);
+let oldResults = "";
 
-        ws.onmessage = (message) => {
-            const tableHtml = document.getElementById("matches");
-            let rowsHtml = "";
+ws.onopen = async () => {
+    console.log("Connected to WebSocket server");
+    const user = sessionStorage.getItem("user");
+    if (user) {
+        ws.send(user);
+    } else {
+        console.error("No user data found in sessionStorage");
+    }
+};
 
-            const matches = JSON.parse(message.data);
-            matches.forEach((match) => {
-                rowsHtml += `
-                    <tr>
-                        <td>${match.name}</td>
-                        <td>${match.photo}</td>
-                        <td>${match.compatibility}%</td>
-                        <td>${match.interestSummary || "No specific common interests identified."}</td>
-                    </tr>
-                `;
-            });
+ws.onclose = () => console.log("WebSocket connection closed");
+ws.onerror = (error) => console.error("WebSocket error:", error);
 
-            // Update table only if results change
-            if (oldResults !== rowsHtml) {
-                tableHtml.innerHTML = rowsHtml;
-                oldResults = rowsHtml;
-            }
-        };
+ws.onmessage = (message) => {
+    const tableHtml = document.getElementById("matches");
+    let rowsHtml = "";
+
+    const matches = JSON.parse(message.data);
+    matches.forEach((match) => {
+        rowsHtml += `
+            <tr>
+                <td>${match.name}</td>
+                <td>${match.photo}</td>
+                <td>${match.compatibility}%</td>
+                <td>${match.interestSummary || "No specific common interests identified."}</td>
+            </tr>
+        `;
+    });
+
+    // Update table only if results change
+    if (oldResults !== rowsHtml) {
+        tableHtml.innerHTML = rowsHtml;
+        oldResults = rowsHtml;
+    }
+};
+
     </script>
 </body>
 

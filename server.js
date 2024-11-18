@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const http = require('http');
 const socketIo = require('socket.io');
+const attachWebSocket = require("./websocket");
 
 // Create an "express" server
 const app = express();
@@ -24,7 +25,10 @@ app.use(express.static('public'));
 require("./routing/apiRoutes")(app, io);
 require("./routing/htmlRoutes")(app);
 
+// Attach WebSocket functionality
+attachWebSocket(server);
+
 // Start the server
-server.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+server.listen(PORT, () => {
+  console.log("App listening on PORT " + PORT);
 });
