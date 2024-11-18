@@ -4,15 +4,9 @@ const bodyParser = require("body-parser");
 const http = require("http");
 const socketIo = require("socket.io");
 
-// Create an "express" server
+// Create an Express app and HTTP server
 const app = express();
-const server = http.createServer(app); // Attach HTTP server
-const io = socketIo(server, {
-    cors: {
-        origin: "*", // Allow requests from all origins (adjust for security in production)
-        methods: ["GET", "POST"]
-    }
-});
+const server = http.createServer(app);
 
 // Set up the port
 const PORT = process.env.PORT || 3000;
@@ -24,29 +18,22 @@ app.use(bodyParser.json());
 // Serve static files from "public"
 app.use(express.static("public"));
 
-// Socket.IO WebSocket connection handling
-io.on("connection", (socket) => {
-    console.log("A client connected:", socket.id);
-
-    // Handle messages from the client
-    socket.on("message", (data) => {
-        console.log("Received message from client:", data);
-
-        // Respond to the client
-        socket.emit("response", { message: "Message received!", data });
-    });
-
-    // Handle disconnection
-    socket.on("disconnect", () => {
-        console.log("Client disconnected:", socket.id);
-    });
+// Initialize Socket.IO
+const io = socketIo(server, {
+    cors: {
+        origin: "*", // Allow all origins (adjust for production)
+        methods: ["GET", "POST"]
+    }
 });
 
-// Integrate WebSocket support in routes
-require("./routing/apiRoutes")(app, io); // Pass both `app` and `io` to routes
-require("./routing/htmlRoutes")(app); // Standard routes
+// Import WebSocket logic
+require("./websocket")(io); // Pass `io` to the WebSocket module
+
+// Integrate routes
+require("./routing/apiRoutes")(app, io); // Pass both `app` and `io` if needed
+require("./routing/htmlRoutes")(app);
 
 // Start the server
-server.listen(PORT, function () {
+server.listen(PORT, () => {
     console.log(`App listening on http://0.0.0.0:${PORT}`);
 });
