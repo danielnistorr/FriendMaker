@@ -82,3 +82,16 @@ module.exports = (io) => {
         });
     });
 };
+// Optional origin check for Render
+function originCheck(origin) {
+    return origin === "https://friendmaker.onrender.com"; // Update with your app's URL
+}
+
+wss.on("connection", (ws, req) => {
+    if (!originCheck(req.headers.origin)) {
+        ws.terminate();
+        return;
+    }
+    console.log("Client connected");
+    // Your connection logic here
+});

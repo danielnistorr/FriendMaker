@@ -37,3 +37,10 @@ require("./routing/htmlRoutes")(app);
 server.listen(PORT, () => {
     console.log(`App listening on http://0.0.0.0:${PORT}`);
 });
+
+// Handle WebSocket upgrade
+server.on('upgrade', (request, socket, head) => {
+    websocketServer.handleUpgrade(request, socket, head, (ws) => {
+        websocketServer.emit('connection', ws, request);
+    });
+});
