@@ -67,8 +67,9 @@ const findCompatiblePersons = (name, photo, data) => {
       const compatibility = compatibilityScore(targetScores, person.scores);
       if (compatibility === 100) {
         const interestSummary = "You both have identical interests.";
-      }
+      } else {
       const interestSummary = generateInterestDescription(person.scores, targetScores);
+      }
       return {
         name: person.name,
         photo: person.photo,
