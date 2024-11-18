@@ -15,7 +15,7 @@
         <h4>Name (required)</h4>
         <input id='userName' type="text" class='form-control' placeholder="Name required" required="true">
 
-        <h4>Instagram Profile (required)</h4>
+        <h4>Surname (required)</h4>
         <input id='photo' type="text" class='form-control' placeholder="Link to profile picture required" required="true">
         <hr>
 
@@ -137,7 +137,37 @@
         <button id='addBtn' type="button" class="btn btn-lg btn-primary">Submit</button>
 
         <script type="text/javascript">
-            $("#addBtn").on("click", function(event) {
+            // Function to validate the form
+            function validateForm() {
+                // Get the values of the name, surname, and questions
+                var name = $("#userName").val().trim();
+                var photo = $("#photo").val().trim();
+                var allAnswered = true;
+        
+                // Check if all dropdowns are answered
+                $(".custom-select").each(function () {
+                    if ($(this).val() === "Choose your answer:" || $(this).val() === "Select your answer:") {
+                        allAnswered = false;
+                    }
+                });
+        
+                // Enable or disable the submit button
+                if (name && photo && allAnswered) {
+                    $("#addBtn").prop("disabled", false);
+                } else {
+                    $("#addBtn").prop("disabled", true);
+                }
+            }
+        
+            // Run validation on input change
+            $(document).ready(function () {
+                $("input, select").on("input change", validateForm);
+        
+                // Initial validation check
+                validateForm();
+            });
+        
+            $("#addBtn").on("click", function (event) {
                 event.preventDefault();
                 var newFriend = {
                     name: $("#userName").val().trim(),
@@ -148,19 +178,18 @@
                         $("#q9").val(), $("#q10").val()
                     ]
                 };
-                sessionStorage.setItem('user', JSON.stringify({
+                sessionStorage.setItem("user", JSON.stringify({
                     name: newFriend.name,
                     photo: newFriend.photo
                 }));
         
-
                 $.post("/api/friends", newFriend)
-                    .done(function(data) {
+                    .done(function (data) {
                         window.location.href = "results.html";
                         if (data.topMatches && data.topMatches.length > 0) {
                             let tableHtml = "<h5>Top 3 Matches:</h5><table class='table table-striped'><thead><tr><th>Name</th><th>Profile Picture</th><th>Compatibility</th><th>Common Interests</th></tr></thead><tbody>";
         
-                            data.topMatches.forEach(function(match) {
+                            data.topMatches.forEach(function (match) {
                                 tableHtml += "<tr>";
                                 tableHtml += "<td>" + match.name + "</td>";
                                 tableHtml += "<td>" + match.photo + "</td>";
@@ -175,14 +204,14 @@
                             $("#matchesTable").html("<p>No matches found.</p>");
                         }
         
-                        $('#myModal').modal('show');
+                        $("#myModal").modal("show");
                     })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
+                    .fail(function (jqXHR, textStatus, errorThrown) {
                         console.error("Error:", textStatus, errorThrown);
                         alert("An error occurred while trying to find matches.");
                     });
             });
-        </script>                      
+        </script>                             
     </div>
     <script type="text/javascript" src="../routing/apiRoutes.js"></script>
 </body>

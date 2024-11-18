@@ -24,7 +24,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Instagram</th>
+                    <th>Surname</th>
                     <th>Compatibility</th>
                     <th>Common Interests</th>
                 </tr>
@@ -35,7 +35,7 @@
         </table>
 
         <script type="text/javascript">
-            const ws = new WebSocket("ws://friendmaker.onrender.com");
+            const ws = new WebSocket("ws://localhost:6789");
             let oldResults = "";
 
             ws.onopen = async () => {
