@@ -148,9 +148,18 @@ ws.onmessage = (message) => {
     // Clear existing rows before adding new ones
     tableHtml.innerHTML = "";
 
-    // Update the table with the top 3 matches
-    // Update the table with the top 3 matches
-matches.forEach((match) => {
+    if (matches.length === 0) {
+        // Show a message if no matches are found
+        const noResultsMessage = document.createElement("tr");
+        noResultsMessage.innerHTML = `
+            <td colspan="4" style="text-align: center; padding: 20px; font-size: 16px; color: #666;">
+                Waiting for compatible people to join...
+            </td>
+        `;
+        tableHtml.appendChild(noResultsMessage);
+    } else {
+
+    matches.forEach((match) => {
     // Primary row for match details
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -170,7 +179,7 @@ matches.forEach((match) => {
     `;
     tableHtml.appendChild(activityRow);
 });
-
+    }
 };
 
     </script>
